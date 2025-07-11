@@ -101,7 +101,7 @@ const SnakeGame = () => {
 
         const interval = setInterval(moveSnake, 150);
         return () => clearInterval(interval);
-    }, [started, direction, gameOver]);
+    }, [started, direction, gameOver, moveSnake]);
 
     // Render Game
     return (
@@ -161,7 +161,7 @@ const SnakeGame = () => {
                             <div
                                 key={idx}
                                 className="absolute bg-green-500"
-                                role="snake-segment"
+                                data-testid="snake-segment"
                                 style={{
                                     width: ELEMENT_SIZE,
                                     height: ELEMENT_SIZE,
@@ -173,7 +173,7 @@ const SnakeGame = () => {
                         ))}
                         <div
                             className="absolute bg-red-500"
-                            role="food"
+                            data-testid="food"
                             style={{
                                 width: ELEMENT_SIZE,
                                 height: ELEMENT_SIZE,

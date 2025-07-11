@@ -22,8 +22,8 @@ test('starts game and shows snake and food', async () => {
   fireEvent.click(startButton);
 
   // Wait for snake segment and food to appear
-  const snake = await screen.findAllByRole('snake-segment');
-  const food = await screen.findByRole('food');
+  const snake = await screen.findAllByTestId('snake-segment');
+  const food = await screen.findByTestId('food');
 
   expect(snake.length).toBeGreaterThan(0);
   expect(food).toBeInTheDocument();
