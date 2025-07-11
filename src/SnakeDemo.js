@@ -1,22 +1,22 @@
 import React, { useState, useEffect, useRef } from "react";
 
-{/* Set constants */}
+// Set constants
 const CELL_SIZE = 20;
-{/* Give a space for gameplay elements within board for classic digital look */}
+// Give a space for gameplay elements within board for classic digital look
 const ELEMENT_SIZE = CELL_SIZE - 1;
 const WIDTH = 400;
 const HEIGHT = 400;
 
-{/* Function to randomize gameplay element positions */}
+// Function to randomize gameplay element positions
 const getRandomPosition = () => {
     const x = Math.floor(Math.random() * (WIDTH / CELL_SIZE)) * CELL_SIZE;
     const y = Math.floor(Math.random() * (HEIGHT / CELL_SIZE)) * CELL_SIZE;
     return { x, y };
 };
 
-{/* Main game function */}
+// Main game function
 const SnakeGame = () => {
-    {/* Init gameplay elements */}
+    // Init gameplay / gamestate elements
     const [snake, setSnake] = useState([{ x: 0, y: 0 }]);
     const [food, setFood] = useState(getRandomPosition());
     const [direction, setDirection] = useState({ x: CELL_SIZE, y: 0 });
@@ -25,7 +25,7 @@ const SnakeGame = () => {
     const [started, setStarted] = useState(false);
     const boardRef = useRef(null);
 
-    {/* Function to handle snake movement */}
+    // Function to handle snake movement
     const moveSnake = () => {
         setSnake((prev) => {
             const newHead = {
@@ -40,6 +40,7 @@ const SnakeGame = () => {
                 newHead.y >= HEIGHT ||
                 prev.some((segment) => segment.x === newHead.x && segment.y === newHead.y)
             ) {
+                // Snake hit wall or itself
                 setGameOver(true);
                 setStarted(false);
                 return prev;
@@ -57,7 +58,7 @@ const SnakeGame = () => {
         });
     };
 
-    {/* Function to handle restarting game on game over */}
+    // Function to handle restarting game on game over
     const handleRestart = () => {
         setSnake([{ x: 0, y: 0 }]);
         setFood(getRandomPosition());
@@ -67,7 +68,7 @@ const SnakeGame = () => {
         setStarted(true);
     };
 
-    {/* Logic to handle snake controls via keyboard input */}
+    //  Logic to handle snake controls via keyboard input
     useEffect(() => {
         if (!started) return;
 
@@ -94,7 +95,7 @@ const SnakeGame = () => {
         return () => document.removeEventListener("keydown", handleKeyDown);
     }, [direction, started]);
 
-    {/* Logic to update snake placement & timing */}
+    // Logic to update snake placement & timing
     useEffect(() => {
         if (!started || gameOver) return;
 
@@ -102,7 +103,7 @@ const SnakeGame = () => {
         return () => clearInterval(interval);
     }, [started, direction, gameOver]);
 
-    {/* Render game */}
+    // Render Game
     return (
         <div className="flex flex-col items-center">
             <h1 className="text-2xl font-bold mb-2">React Snake Demo</h1>
