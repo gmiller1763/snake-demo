@@ -121,6 +121,7 @@ const SnakeGame = () => {
                         <button
                             onClick={() => setStarted(true)}
                             className="px-6 py-3 bg-green-600 rounded hover:bg-green-700"
+                            aria-label="start-game" 
                         >
                             Start Game
                         </button>
@@ -133,10 +134,11 @@ const SnakeGame = () => {
                         className="absolute z-10 flex flex-col items-center justify-center bg-black bg-opacity-70 text-white"
                         style={{ width: WIDTH, height: HEIGHT, boxSizing: "border-box" }}
                     >
-                        <p className="text-red-500 text-lg mb-4">Game Over</p>
+                        <p data-testid="game-over-message" className="text-red-500 text-lg mb-4">Game Over</p>
                         <button
                             onClick={handleRestart}
                             className="px-6 py-3 bg-blue-500 rounded hover:bg-blue-600"
+                            aria-label="restart-game" 
                         >
                             Restart Game
                         </button>
@@ -158,6 +160,7 @@ const SnakeGame = () => {
                             <div
                                 key={idx}
                                 className="absolute bg-green-500"
+                                role="snake-segment"
                                 style={{
                                     width: ELEMENT_SIZE,
                                     height: ELEMENT_SIZE,
@@ -169,6 +172,7 @@ const SnakeGame = () => {
                         ))}
                         <div
                             className="absolute bg-red-500"
+                            role="food"
                             style={{
                                 width: ELEMENT_SIZE,
                                 height: ELEMENT_SIZE,
