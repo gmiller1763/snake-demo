@@ -9,16 +9,33 @@ const HEIGHT = 400;
 
 // Function to randomize gameplay element positions
 const getRandomPosition = () => {
-    const x = Math.floor(Math.random() * (WIDTH / CELL_SIZE)) * CELL_SIZE;
-    const y = Math.floor(Math.random() * (HEIGHT / CELL_SIZE)) * CELL_SIZE;
+    // const x = Math.floor(Math.random() * (WIDTH / CELL_SIZE)) * CELL_SIZE;
+    // const y = Math.floor(Math.random() * (HEIGHT / CELL_SIZE)) * CELL_SIZE;
+    const x= 0;
+    const y = 0;
     return { x, y };
+};
+
+// Function to randomize apple element positions
+const getRandomApplePosition = (snakeObj) => {
+    let randomApple = getRandomPosition();
+
+    // console.log('randomApple', randomApple );
+    // console.log('includes: ', snakeObj.includes(randomApple));
+    // console.log('snakeObj:', snakeObj);
+
+    while(snakeObj.includes(randomApple)){
+        randomApple = getRandomPosition();
+    }
+    
+    return randomApple;
 };
 
 // Main game function
 const SnakeGame = () => {
     // Init gameplay / gamestate elements
     const [snake, setSnake] = useState([{ x: 0, y: 0 }]);
-    const [food, setFood] = useState(getRandomPosition());
+    const [food, setFood] = useState(getRandomApplePosition(snake));
     const [direction, setDirection] = useState({ x: CELL_SIZE, y: 0 });
     const [gameOver, setGameOver] = useState(false);
     const [score, setScore] = useState(0);
@@ -48,7 +65,7 @@ const SnakeGame = () => {
 
             const newSnake = [newHead, ...prev];
             if (newHead.x === food.x && newHead.y === food.y) {
-                setFood(getRandomPosition());
+                setFood(getRandomApplePosition(snake));
                 setScore((prevScore) => prevScore + 1);
             } else {
                 newSnake.pop();
@@ -61,7 +78,7 @@ const SnakeGame = () => {
     // Function to handle restarting game on game over
     const handleRestart = () => {
         setSnake([{ x: 0, y: 0 }]);
-        setFood(getRandomPosition());
+        setFood(getRandomApplePosition(snake));
         setDirection({ x: CELL_SIZE, y: 0 });
         setGameOver(false);
         setScore(0);
