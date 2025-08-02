@@ -9,10 +9,9 @@ const HEIGHT = 400;
 
 // Function to randomize gameplay element positions
 const getRandomPosition = () => {
-    // const x = Math.floor(Math.random() * (WIDTH / CELL_SIZE)) * CELL_SIZE;
-    // const y = Math.floor(Math.random() * (HEIGHT / CELL_SIZE)) * CELL_SIZE;
-    const x= 0;
-    const y = 0;
+    const x = Math.floor(Math.random() * (WIDTH / CELL_SIZE)) * CELL_SIZE;
+    const y = Math.floor(Math.random() * (HEIGHT / CELL_SIZE)) * CELL_SIZE;
+
     return { x, y };
 };
 
@@ -20,14 +19,10 @@ const getRandomPosition = () => {
 const getRandomApplePosition = (snakeObj) => {
     let randomApple = getRandomPosition();
 
-    // console.log('randomApple', randomApple );
-    // console.log('includes: ', snakeObj.includes(randomApple));
-    // console.log('snakeObj:', snakeObj);
-
-    while(snakeObj.includes(randomApple)){
+    while(snakeObj.some((element) => element.x === randomApple.x && element.y === randomApple.y)){
         randomApple = getRandomPosition();
     }
-    
+
     return randomApple;
 };
 
